@@ -1,0 +1,21 @@
+version: '3'
+services:
+  minienv-swarm-runner:
+    image: minienv/minienv-swarm-runner:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "30081"
+      - "30082"
+      - "30083"
+    environment:
+      - COMPOSE_HTTP_TIMEOUT=180
+      - MINIENV_VOLUME_NAME=minienv-env-1-volume
+      - MINIENV_ALLOW_ORIGIN=*
+      - MINIENV_INTERNAL_LOG_PORT=30081
+      - MINIENV_INTERNAL_EDITOR_PORT=30082
+      - MINIENV_INTERNAL_PROXY_PORT=30083
+      - MINIENV_EXTERNAL_LOG_PORT=40000
+      - MINIENV_EXTERNAL_EDITOR_PORT=40001
+      - MINIENV_EXTERNAL_PROXY_PORT=40002
+      - MINIENV_GIT_REPO=${GIT_REPO}

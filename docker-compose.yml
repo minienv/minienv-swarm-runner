@@ -1,0 +1,21 @@
+version: '3'
+services:
+  minienv:
+    image: 127.0.0.1:5000/minienv/minienv:latest
+    privileged: true
+    volumes:
+      - $volumeName:/var/lib/docker
+    ports:
+      - "${MINIENV_EXTERNAL_LOG_PORT}:${MINIENV_INTERNAL_LOG_PORT}"
+      - "${MINIENV_EXTERNAL_EDITOR_PORT}:${MINIENV_INTERNAL_EDITOR_PORT}"
+      - "${MINIENV_EXTERNAL_PROXY_PORT}:${MINIENV_INTERNAL_PROXY_PORT}"
+    environment:
+      - COMPOSE_HTTP_TIMEOUT=${COMPOSE_HTTP_TIMEOUT}
+      - MINIENV_ALLOW_ORIGIN=${MINIENV_ALLOW_ORIGIN}
+      - MINIENV_LOG_PORT=${MINIENV_INTERNAL_LOG_PORT}
+      - MINIENV_EDITOR_PORT=${MINIENV_INTERNAL_EDITOR_PORT}
+      - MINIENV_PROXY_PORT=${MINIENV_INTERNAL_PROXY_PORT}
+      - MINIENV_GIT_REPO=${MINIENV_GIT_REPO}
+volumes:
+  $volumeName:
+    external: true
